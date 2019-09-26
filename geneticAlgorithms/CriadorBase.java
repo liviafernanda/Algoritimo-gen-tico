@@ -31,42 +31,42 @@ public class CriadorBase {
 		CriadorBase demo = new CriadorBase();
 		
 		
-		//Inicializar a população
+		//Inicializar a populaÃ§Ã£o
 		demo.populacao.InicializarPopulacao();
 		
 		//Calcular o fitness de cada individuo
 		demo.populacao.calculaFitness();
 		
-		System.out.println("Geração: " + demo.contadorGeral + " Mais adaptado: " + demo.populacao.adaptado);
+		System.out.println("GeraÃ§Ã£o: " + demo.contadorGeral + " Mais adaptado: " + demo.populacao.adaptado);
 		
-		//Enquanto a população pega o individuo com o máximo fitness
+		//Enquanto a populaÃ§Ã£o pega o individuo com o mÃ¡ximo fitness
 		while(demo.populacao.adaptado < 5){
 			++demo.contadorGeral;
 			
-			//Fazer a seleção
+			//Fazer a seleÃ§Ã£o
 			demo.selecao();
 			
 			//fazer crossover
 			demo.crossover();
 			
-			//Fazer a mutação a partir de probabilidade randômica
-			if(randomico.nextInt() % 7 < 5){
+			//Fazer a mutaÃ§Ã£o a partir de probabilidade randÃ´mica
+			if(randomico.nextInt() < 5){
 				demo.mutacao();
 			}
 			
-			//adicionar a geração mais adaptada para a populacoa
+			//adicionar a geraÃ§Ã£o mais adaptada para a populacoa
 			demo.addDescendenciaAdaptada();
 			
 			//Calcular o valor do novo fitness
 			demo.populacao.calculaFitness();
 			
-			System.out.println("Geração: " + demo.contadorGeral + " Mais adaptado: " + demo.populacao.adaptado);
+			System.out.println("GeraÃ§Ã£o: " + demo.contadorGeral + " Mais adaptado: " + demo.populacao.adaptado);
 			
 					
 		}
 		
 		System.out.println();
-		System.out.println("Solução encontrada na geração " + demo.contadorGeral);
+		System.out.println("SoluÃ§Ã£o encontrada na geraÃ§Ã£o " + demo.contadorGeral);
 		System.out.println("Fitness => " + demo.populacao.getAdaptado().fitness);
 		System.out.println("Genes: ");
 		for(int i = 0; i<5; i++){
@@ -81,7 +81,7 @@ public class CriadorBase {
 	}
 	
 	
-	//seleção
+	//seleÃ§Ã£o
 	void selecao(){		
 		//selecionar o mais adaptado
 		adaptado = populacao.getAdaptado();
@@ -111,15 +111,15 @@ public class CriadorBase {
 		
 	}
 	
-	//Mutação
+	//MutaÃ§Ã£o
 	void mutacao(){
 		Random randomico = new Random();
 		
-		//selecionar o ponto randomico pra fazer a mutação
+		//selecionar o ponto randomico pra fazer a mutaÃ§Ã£o
 		
 		int pontoDeMutacao = randomico.nextInt(populacao.individuos[0].tamanhoGene);
 		
-		//trocar os valores no ponto de mutação
+		//trocar os valores no ponto de mutaÃ§Ã£o
 		if(adaptado.genes[pontoDeMutacao] == 0){
 			adaptado.genes[pontoDeMutacao] = 1;
 		} else {
@@ -138,7 +138,7 @@ public class CriadorBase {
 		
 	}
 	
-	//escolhendo a descendência mais adaptada.
+	//escolhendo a descendÃªncia mais adaptada.
 	Individuo getDescendenciaAdaptada()	{
 		if(adaptado.fitness > segundoMaisAdaptado.fitness){
 			return adaptado;
@@ -149,18 +149,18 @@ public class CriadorBase {
 	
 	
 	
-	//substituir o indivíduo menos adaptado a partir da descendência mais adaptada
+	//substituir o indivÃ­duo menos adaptado a partir da descendÃªncia mais adaptada
 	void addDescendenciaAdaptada(){
 		
 		
-		//atualizar valores de descendência do fitness
+		//atualizar valores de descendÃªncia do fitness
 		adaptado.CalculaFitness();
 		segundoMaisAdaptado.CalculaFitness();
 		
 		//pegar o indice do ultimo adaptado
 		int indiceUltimoAdaptado = populacao.getUltimoAdaptado();
 		
-		//Substituir o último adaptado a partir da descendência mais adaptada
+		//Substituir o Ãºltimo adaptado a partir da descendÃªncia mais adaptada
 		populacao.individuos[indiceUltimoAdaptado] = getDescendenciaAdaptada();
 		
 	}
@@ -168,7 +168,7 @@ public class CriadorBase {
 
 }
 
-//Classe de indivíduo
+//Classe de indivÃ­duo
 class Individuo {
 	
 	int fitness = 0;
@@ -176,11 +176,11 @@ class Individuo {
 	int tamanhoGene = 5;
 	
 	public Individuo (){
-		// Cria genes randomicamente para cada indivíduo
+		// Cria genes randomicamente para cada indivÃ­duo
 		
 		Random geneIndividuo = new Random();
 		for(int i=0; i<genes.length; i++){
-			genes[i] = Math.abs(geneIndividuo.nextInt() % 2);
+			genes[i] = Math.abs(geneIndividuo.nextInt());
 		}
 		
 		fitness = 0;
@@ -201,7 +201,7 @@ class Individuo {
 	
 }
 
-//Classe de população
+//Classe de populaÃ§Ã£o
 class Populacao {
 	
 	int tamanhoPop = 10;
@@ -209,7 +209,7 @@ class Populacao {
 	int adaptado = 0;
 	
 	
-	//criando a população
+	//criando a populaÃ§Ã£o
 	public void InicializarPopulacao (){
 		for (int i=0; i<individuos.length; i++){
 			individuos[i] = new Individuo();
@@ -253,7 +253,7 @@ class Populacao {
 		return individuos[maxFit2];
 	}
 	
-	//escolhendo o último mais adaptado
+	//escolhendo o Ãºltimo mais adaptado
 	public int getUltimoAdaptado(){
 		int minValFit = Integer.MAX_VALUE;
 		int indexMinFit = 0;
